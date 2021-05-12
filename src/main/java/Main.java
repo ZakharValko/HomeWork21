@@ -24,7 +24,8 @@ public class Main {
         for(Field field: fields){
             field.setAccessible(true); // Открываем редактирование полей
             if(field.isAnnotationPresent(Pow.class)){ // Проверяем есть ли у поля аннотация
-                if(field.getType() != String.class && field.getType() != Character.class) { // Проверяем тип поля и исключаем String и Character
+                Object value = field.get(myMath);
+                if(value instanceof Number) { // Проверяем тип поля и исключаем String и Character
                     Number currentValue = (Number) field.get(myMath); // Текущее значение поля
 
                     // Определяем к какому типу кастить и получаем значение которое необходимо установить
