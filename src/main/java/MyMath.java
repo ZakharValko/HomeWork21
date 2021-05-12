@@ -6,6 +6,7 @@ public class MyMath {
     @Pow
     private Double aDouble = 3.0;
 
+    @Pow
     private Integer integer = 2;
 }
 

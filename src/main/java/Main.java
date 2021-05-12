@@ -26,7 +26,27 @@ public class Main {
             if(field.isAnnotationPresent(Pow.class)){ // Проверяем есть ли у поля аннотация
                 if(field.getType() != String.class && field.getType() != Character.class) { // Проверяем тип поля и исключаем String и Character
                     Number currentValue = (Number) field.get(myMath); // Текущее значение поля
-                    Number valueToSet = (double) currentValue * (double) currentValue; // Получаем новое значение
+
+                    // Определяем к какому типу кастить и получаем значение которое необходимо установить
+                    Number valueToSet;
+                    String type = field.getType().getName();
+                    switch (type){
+                        case "java.lang.Byte": valueToSet = (byte) currentValue * (byte) currentValue;
+                            break;
+                        case "java.lang.Short": valueToSet = (short) currentValue * (short) currentValue;
+                            break;
+                        case "java.lang.Integer": valueToSet = (int) currentValue * (int) currentValue;
+                            break;
+                        case "java.lang.Double":  valueToSet = (double) currentValue * (double) currentValue;
+                            break;
+                        case "java.lang.Float": valueToSet = (float) currentValue * (float) currentValue;
+                            break;
+                        case "java.lang.Long": valueToSet = (long) currentValue * (long) currentValue;
+                            break;
+                        default:
+                            throw new IllegalStateException("Unexpected value: " + type);
+                    }
+
                     field.set(myMath, valueToSet); // Устанавливаем значение
                     System.out.println(field.get(myMath));
                 }
